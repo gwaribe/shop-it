@@ -18,7 +18,6 @@ Stores all items available for sale.
   "price": Number,
   "stock": Number,
   "category": String,
-  "description": String
 }
 ```
 

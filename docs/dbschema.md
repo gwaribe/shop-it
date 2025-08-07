@@ -10,7 +10,7 @@ shop-it
 
 Stores all items available for sale.
 
-```json
+```bash
 {
   "_id": ObjectId,
   "name": String,
@@ -25,7 +25,7 @@ Stores all items available for sale.
 
 Logs every completed sale.
 
-```json
+```bash
 {
   "_id": ObjectId,
   "item": {

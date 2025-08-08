@@ -6,6 +6,9 @@ def create_app():
 
     # register blueprints
     from app.routes.main import main_bp
+    from app.routes.inventory import inventory_bp
     app.register_blueprint(main_bp)
-
+    app.register_blueprint(inventory_bp, url_prefix="/inventory")
+    
     return app
+    

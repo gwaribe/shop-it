@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop-it</title>
+    <!-- html5-qrscanner -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        #scanner-container {
+        display: none;
+        margin-top: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Scan QRCode</h1>
+    <button onclick="startScanner()">Start Scan</button>
+
+    <div id="scanner-container">
+        <div id="reader" style="width: 600px;"></div>
+        <p id="scan-result"></p>
+        <button onclick="stopScanner()">Stop Scan</button>
+    </div>
+
+    <script>
+        let html5QrCode;
+
+        function startScanner() {
+            document.getElementById("scanner-container").style.display = "block";
+
+            html5QrCode = new Html5Qrcode("reader");
+            html5QrCode.start(
+                { facingMode: "environment" },
+                {
+                    fps: 10,
+                    qrbox: 250
+                },
+                (decodedText, decodedResult) => {
+                    document.getElementById("scan-result").innerText = "Scanned: " + decodedText;
+                    stopScanner();
+
+                // Optional: fetch item from backend
+                    // fetch(`/inventory/${decodedText}`)
+                    //     .then(res => res.json())
+                    //     .then(data => console.log("Item:", data));
+            },
+            (errorMessage) => {
+            // Ignore scan errors
+            }
+        ).catch(err => {
+            console.error("Scan failed", err);
+        });
+        }
+
+        function stopScanner() {
+        if (html5QrCode) {
+            html5QrCode.stop().then(() => {
+            html5QrCode.clear();
+            document.getElementById("scanner-container").style.display = "none";
+            });
+        }
+        }
+
+    </script>
+</body>
+</html>

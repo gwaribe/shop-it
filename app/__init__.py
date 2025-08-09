@@ -11,4 +11,5 @@ def create_app():
     app.register_blueprint(inventory_bp, url_prefix="/inventory")
     
     return app
-    
+
+app = create_app()

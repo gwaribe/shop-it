@@ -52,8 +52,9 @@
                         <h6>Total</h6>
                         <p id="item-total" class="fw-bold"></p>
                     </div>
-                    <div class="col-6 d-flex align-items-end justify-content-end">
+                    <div class="col-6 d-flex align-items-end justify-content-end gap-2">
                         <button class="btn btn-primary" id="proceed-btn" disabled>Proceed</button>
+                        <button class="btn btn-outline-secondary" id="clear-btn" style="display: none;">Clear</button>
                     </div>
                 </div>
             </div>
@@ -129,13 +130,25 @@
             document.getElementById("item-display").style.display = "block";
             document.getElementById("proceed-btn").disabled = false;
             document.getElementById("item-error").classList.add("d-none");
+            document.getElementById("clear-btn").style.display = "inline-block"; // Show clear button
         }
+
+        // Hide item display and scan result when clear is clicked
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("clear-btn").addEventListener("click", function () {
+                document.getElementById("item-display").style.display = "none";
+                document.getElementById("scan-result").classList.add("d-none");
+                document.getElementById("clear-btn").style.display = "none";
+                document.getElementById("item-error").classList.add("d-none");
+            });
+        });
 
         function showItemError(message) {
             const errorDiv = document.getElementById("item-error");
             errorDiv.textContent = message;
             errorDiv.classList.remove("d-none");
             document.getElementById("item-display").style.display = "none";
+            document.getElementById("clear-btn").style.display = "none"; // Hide clear button on error
         }
     </script>
     <!-- Bootstrap JS (optional, for some components) -->

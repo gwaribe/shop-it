@@ -72,6 +72,37 @@
             </div>
         </div>
 
+        <!-- Transaction Confirmation Card -->
+        <div id="confirmation-card" class="card shadow-sm mt-4" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title text-success">Payment Confirmed</h5>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>T Code</strong></div>
+                    <div class="col-6" id="conf-tcode"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Amount</strong></div>
+                    <div class="col-6" id="conf-amount"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Phone</strong></div>
+                    <div class="col-6" id="conf-phone"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Status</strong></div>
+                    <div class="col-6 text-success fw-bold">Confirmed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction Failed Card -->
+        <div id="failed-card" class="card shadow-sm mt-4" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title text-danger">Transaction Failed</h5>
+                <p>Either you cancelled or have insufficient balance. Retry.</p>
+            </div>
+        </div>
+
         <!-- Error display -->
         <div id="item-error" class="alert alert-danger d-none mt-4" role="alert"></div>
     </div>
@@ -183,17 +214,28 @@
 
             fetch("/mpesa/pay", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ phoneNumber, amount })
             })
-            .then(res => res.json())
-            .then(data => {
-                alert(data.message || "Payment initiated");
-            })
-            .catch(err => {
-                alert("Failed to initiate payment");
-                console.error("Payment error:", err);
-            });
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // Payment successful, show confirmation card
+                        document.getElementById("conf-tcode").textContent = data.tcode;
+                        document.getElementById("conf-amount").textContent = "Ksh " + amount;
+                        document.getElementById("conf-phone").textContent = phoneNumber;
+                        document.getElementById("confirmation-card").style.display = "block";
+                        document.getElementById("failed-card").style.display = "none";
+                    } else {
+                        // Payment failed, show failed card
+                        document.getElementById("failed-card").style.display = "block";
+                        document.getElementById("confirmation-card").style.display = "none";
+                    }
+                })
+                .catch(err => {
+                    alert("Failed to initiate payment");
+                    console.error("Payment error:", err);
+                });
         });
     </script>
     <!-- Bootstrap JS (optional, for some components) -->

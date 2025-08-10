@@ -29,7 +29,7 @@ def get_access_token():
 @payment_bp.route('/pay', methods=['POST'])
 def initiate_payment():
     data = request.get_json()
-    phone_number = data["phone_number"]
+    phone_number = data["phoneNumber"]
     amount = data["amount"]
 
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")

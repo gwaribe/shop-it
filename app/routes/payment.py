@@ -4,6 +4,7 @@ from datetime import datetime
 import base64
 import os
 from dotenv import load_dotenv
+from app.db import transactions_collection, inventory_collection
 
 # Load environment variables
 load_dotenv()
@@ -65,7 +66,25 @@ def initiate_payment():
 @payment_bp.route('/callback', methods=['POST'])
 def mpesa_callback():
     data = request.get_json()
-    # Here you would typically process the callback data
-    # For now, we just log it
     print("MPESA Callback Data:", data)
-    return jsonify({"status": "success"}), 200
+
+    # Safaricom returns ResultCode == 0 for success
+    result_code = data.get("Body", {}).get("stkCallback", {}).get("ResultCode")
+    if result_code == 0:
+        callback = data["Body"]["stkCallback"]
+        meta = {item["Name"]: item["Value"] for item in callback["CallbackMetadata"]["Item"]}
+        # You may want to fetch the item by barcode or other means, here we just store payment info
+        transaction = {
+            "payment": {
+                "amount_paid": meta.get("Amount"),
+                "mpesa_code": meta.get("MpesaReceiptNumber"),
+                "phone_number": meta.get("PhoneNumber"),
+                "datetime": meta.get("TransactionDate")
+            }
+        }
+        transactions_collection.insert_one(transaction)
+        # Optionally, you can trigger a websocket/event to notify the frontend
+        return jsonify({"status": "success", "confirmation": transaction}), 200
+    else:
+        # Failed transaction, do not store
+        return jsonify({"status": "failed"}), 200

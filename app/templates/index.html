@@ -6,12 +6,6 @@
     <title>Shop-it</title>
     <!-- html5-qrscanner -->
     <script src="https://unpkg.com/html5-qrcode"></script>
-    <style>
-        #scanner-container {
-        display: none;
-        margin-top: 20px;
-        }
-    </style>
 
 </head>
 <body>
@@ -19,7 +13,7 @@
     <button onclick="startScanner()">Start Scan</button>
 
     <div id="scanner-container">
-        <div id="reader" style="width: 600px;"></div>
+        <div id="reader" style="width: auto"></div>
         <p id="scan-result"></p>
         <button onclick="stopScanner()">Stop Scan</button>
     </div>
@@ -58,7 +52,7 @@
         if (html5QrCode) {
             html5QrCode.stop().then(() => {
             html5QrCode.clear();
-            document.getElementById("scanner-container").style.display = "none";
+            document.getElementById("scanner-container");
             });
         }
         }

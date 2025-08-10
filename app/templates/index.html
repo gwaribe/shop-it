@@ -175,7 +175,26 @@
             document.getElementById("item-display").style.display = "block";
         });
 
-        // Optionally, handle OK button click here
+        // handle OK button click here
+        document.getElementById("ok-btn").addEventListener("click", function () {
+            const phoneNumber = document.getElementById("phone-number").value;
+            const priceText = document.getElementById("item-price").textContent;
+            const amount = parseInt(priceText.replace("Ksh", "").trim());
+
+            fetch("/mpesa/pay", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ phoneNumber, amount })
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert(data.message || "Payment initiated");
+            })
+            .catch(err => {
+                alert("Failed to initiate payment");
+                console.error("Payment error:", err);
+            });
+        });
     </script>
     <!-- Bootstrap JS (optional, for some components) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

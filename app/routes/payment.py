@@ -3,6 +3,10 @@ from flask import Blueprint, request, jsonify
 from datetime import datetime
 import base64
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 payment_bp = Blueprint('payment', __name__)
 

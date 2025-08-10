@@ -89,10 +89,14 @@ def mpesa_callback():
         # Failed transaction, do not store
         return jsonify({"status": "failed"}), 200
 
-@payment_bp.route('/last-status')
+@payment_bp.route('/last-status', methods=['GET'])
 def last_status():
     phone = request.args.get("phone")
-    tx = transactions_collection.find_one({"payment.phone_number": phone}, sort=[("_id", -1)])
+    # check if phone number is provided
+    if not phone:
+        return jsonify({"status": "failed", "message": "Phone number is required"}), 400
+    
+    tx = transactions_collection.find_one({"payment.phone_number": int(phone)}, sort=[("_id", -1)])
     if tx:
         tx["_id"] = str(tx["_id"])
         return jsonify({"status": "success", "confirmation": tx})

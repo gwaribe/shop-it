@@ -219,9 +219,9 @@
             })
                 .then(res => res.json())
                 .then(data => {
-                    // Wait for callback to be processed (in production, use websocket or polling)
+                    lastCheckoutId = data.CheckoutRequestID;
                     setTimeout(() => {
-                        fetch("/mpesa/last-status?phone=" + phoneNumber)
+                        fetch("/mpesa/last-status?checkout_id=" + lastCheckoutId)
                             .then(res => res.json())
                             .then(status => {
                                 if (status.status === "success") {

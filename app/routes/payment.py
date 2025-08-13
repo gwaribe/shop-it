@@ -60,7 +60,10 @@ def initiate_payment():
         json=payload,
         headers=headers
     )
-    return jsonify(response.json()), response.status_code
+    resp_json = response.json()
+    checkout_id = resp_json.get("CheckoutRequestID")
+    # Return this to the frontend
+    return jsonify({"CheckoutRequestID": checkout_id, **resp_json}), response.status_code
 
 # create callback endpoint
 @payment_bp.route('/callback', methods=['POST'])
@@ -73,8 +76,8 @@ def mpesa_callback():
     if result_code == 0:
         callback = data["Body"]["stkCallback"]
         meta = {item["Name"]: item["Value"] for item in callback["CallbackMetadata"]["Item"]}
-        # You may want to fetch the item by barcode or other means, here we just store payment info
         transaction = {
+            "checkout_id": callback.get("CheckoutRequestID"),
             "payment": {
                 "amount_paid": meta.get("Amount"),
                 "mpesa_code": meta.get("MpesaReceiptNumber"),
@@ -83,7 +86,9 @@ def mpesa_callback():
             }
         }
         transactions_collection.insert_one(transaction)
-        # Optionally, you can trigger a websocket/event to notify the frontend
+        # serialize the transaction for response
+        transaction["_id"] = str(transaction["_id"]) # pyright: ignore[reportArgumentType]
+
         return jsonify({"status": "success", "confirmation": transaction}), 200
     else:
         # Failed transaction, do not store
@@ -91,14 +96,14 @@ def mpesa_callback():
 
 @payment_bp.route('/last-status', methods=['GET'])
 def last_status():
-    phone = request.args.get("phone")
-    # check if phone number is provided
-    if not phone:
-        return jsonify({"status": "failed", "message": "Phone number is required"}), 400
-    
-    tx = transactions_collection.find_one({"payment.phone_number": int(phone)}, sort=[("_id", -1)])
+    checkout_id = request.args.get("checkout_id")
+    if not checkout_id:
+        return jsonify({"status": "failed", "message": "CheckoutRequestID is required"}), 400
+
+    tx = transactions_collection.find_one({"checkout_id": checkout_id})
     if tx:
         tx["_id"] = str(tx["_id"])
         return jsonify({"status": "success", "confirmation": tx})
     else:
         return jsonify({"status": "failed"})
+

@@ -206,6 +206,33 @@
             document.getElementById("item-display").style.display = "block";
         });
 
+        function pollPaymentStatus(checkoutId, maxAttempts = 30, interval = 2000) {
+            let attempts = 0;
+            function poll() {
+                fetch("/mpesa/last-status?checkout_id=" + checkoutId)
+                    .then(res => res.json())
+                    .then(status => {
+                        if (status.status === "success") {
+                            showConfirmationCard(status.confirmation.payment);
+                        } else if (attempts < maxAttempts) {
+                            attempts++;
+                            setTimeout(poll, interval);
+                        } else {
+                            showFailedCard();
+                        }
+                    })
+                    .catch(() => {
+                        if (attempts < maxAttempts) {
+                            attempts++;
+                            setTimeout(poll, interval);
+                        } else {
+                            showFailedCard();
+                        }
+                    });
+            }
+            poll();
+        }
+
         // handle OK button click here
         document.getElementById("ok-btn").addEventListener("click", function () {
             const phoneNumber = document.getElementById("phone-number").value;
@@ -220,17 +247,7 @@
                 .then(res => res.json())
                 .then(data => {
                     lastCheckoutId = data.CheckoutRequestID;
-                    setTimeout(() => {
-                        fetch("/mpesa/last-status?checkout_id=" + lastCheckoutId)
-                            .then(res => res.json())
-                            .then(status => {
-                                if (status.status === "success") {
-                                    showConfirmationCard(status.confirmation.payment);
-                                } else {
-                                    showFailedCard();
-                                }
-                            });
-                    }, 45000); // Wait 45s for callback (adjust as needed)
+                    pollPaymentStatus(lastCheckoutId); // Start polling immediately
                 })
                 .catch(err => {
                     showFailedCard();

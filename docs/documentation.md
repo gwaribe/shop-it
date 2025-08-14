@@ -21,9 +21,9 @@ waiting in checkout lines.
 **Requirements:**
 
 - Use phone camera to scan product barcode (MVP)
-- Validate barcode format
-- Handle scan errors with clear user feedback
+- Handle scan errors with clear user feedback (MVP)
 - Provide intuitive scanning interface
+- ~~Validate barcode format~~ (Not needed for MVP - validation happens implicitly during inventory lookup)
 
 **Implementation:**
 
@@ -31,6 +31,7 @@ waiting in checkout lines.
 - Implement camera permission handling
 - Add fallback for failed scans (manual entry option)
 - Display clear scanning instructions to users
+- Error handling via inventory lookup response
 
 ### 2. Inventory Lookup
 

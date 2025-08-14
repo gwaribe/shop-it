@@ -25,13 +25,49 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("item-display").style.display = "block";
     });
 
+    // Validate phone number as user types
+    document.getElementById("phone-number").addEventListener("input", validatePhoneNumber);
+
+    // Validate phone number format
+    function validatePhoneNumber() {
+        const phoneInput = document.getElementById("phone-number");
+        const phoneError = document.getElementById("phone-error");
+        const okButton = document.getElementById("ok-btn");
+        const phoneNumber = phoneInput.value.trim();
+
+        // Check if phone number matches required format: 254 followed by 9 digits
+        const isValid = /^254\d{9}$/.test(phoneNumber);
+
+        if (!isValid) {
+            phoneInput.classList.add("is-invalid");
+            phoneError.classList.remove("d-none");
+            okButton.disabled = true;
+        } else {
+            phoneInput.classList.remove("is-invalid");
+            phoneInput.classList.add("is-valid");
+            phoneError.classList.add("d-none");
+            okButton.disabled = false;
+        }
+
+        return isValid;
+    }
+
     // Handle OK button click for payment
     document.getElementById("ok-btn").addEventListener("click", function () {
-        const phoneNumber = document.getElementById("phone-number").value;
+        // Validate phone number before proceeding
+        if (!validatePhoneNumber()) {
+            return; // Stop execution if phone number is invalid
+        }
+
+        const phoneNumber = document.getElementById("phone-number").value.trim();
         const priceText = document.getElementById("item-price").textContent;
         const amount = parseInt(priceText.replace("Ksh", "").trim());
 
         console.log("Initiating payment with phone:", phoneNumber, "amount:", amount);
+
+        // Show a waiting indicator
+        document.getElementById("ok-btn").disabled = true;
+        document.getElementById("ok-btn").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
 
         fetch("/mpesa/pay", {
             method: "POST",
@@ -40,16 +76,33 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(res => {
                 console.log("Payment response status:", res.status);
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
                 return res.json();
             })
             .then(data => {
                 console.log("Payment response data:", data);
+                if (data.error) {
+                    // Handle server-side validation error
+                    throw new Error(data.error);
+                }
                 window.lastCheckoutId = data.CheckoutRequestID;
                 console.log("Starting polling with checkout ID:", window.lastCheckoutId);
                 window.pollPaymentStatus(window.lastCheckoutId); // Start polling immediately
             })
             .catch(err => {
                 console.error("Payment error:", err);
+                // Reset button state on error
+                document.getElementById("ok-btn").disabled = false;
+                document.getElementById("ok-btn").textContent = "OK";
+
+                // Show error message
+                const phoneError = document.getElementById("phone-error");
+                phoneError.textContent = err.message || "Payment failed. Please try again.";
+                phoneError.classList.remove("d-none");
+                document.getElementById("phone-number").classList.add("is-invalid");
+
                 window.showFailedCard();
             });
     });

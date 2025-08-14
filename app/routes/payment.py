@@ -32,6 +32,11 @@ def initiate_payment():
     data = request.get_json()
     phone_number = data["phoneNumber"]
     amount = data["amount"]
+    
+    # Validate phone number format
+    import re
+    if not re.match(r'^254\d{9}$', phone_number):
+        return jsonify({"error": "Invalid phone number format. Must be 254 followed by 9 digits."}), 400
 
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     password = base64.b64encode(f"{BUSINESS_SHORTCODE}{PASSKEY}{timestamp}".encode()).decode()

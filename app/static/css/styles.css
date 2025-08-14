@@ -1,0 +1,52 @@
+/* Shop-It Application Styles */
+
+/* Main container styles */
+#scanner-container {
+    display: none;
+    margin-top: 20px;
+}
+
+#item-display {
+    display: none;
+}
+
+#manual-entry-container {
+    display: none;
+    margin-top: 20px;
+}
+
+/* Fix for camera display consistency */
+#reader {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto;
+    overflow: hidden !important;
+    position: relative;
+    height: auto !important;
+    min-height: 300px;
+}
+
+#reader video {
+    object-fit: cover !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Make sure the scanner view is properly contained */
+#reader canvas {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+
+/* Fix for the camera UI on mobile */
+@media (max-width: 768px) {
+    #reader {
+        min-height: 250px;
+    }
+
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}

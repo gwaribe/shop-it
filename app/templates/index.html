@@ -179,6 +179,30 @@
                     <div class="col-6"><strong>Status</strong></div>
                     <div class="col-6 text-success fw-bold">Confirmed</div>
                 </div>
+                <div class="text-center mt-3">
+                    <button class="btn btn-primary" id="show-receipt-btn">View Receipt</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Digital Receipt Card -->
+        <div id="receipt-card" class="card shadow mt-4" style="display: none; max-width: 500px; margin: 0 auto;">
+            <div class="card-body">
+                <h4 class="card-title text-center mb-3">Digital Receipt</h4>
+                <div class="mb-2 text-center">
+                    <img src="/static/img/receipt-icon.png" alt="Receipt" style="width:48px;height:48px;"
+                        onerror="this.style.display='none'">
+                </div>
+                <div class="mb-2"><strong>Date/Time:</strong> <span id="receipt-timestamp"></span></div>
+                <div class="mb-2"><strong>Item:</strong> <span id="receipt-item"></span></div>
+                <div class="mb-2"><strong>Price:</strong> <span id="receipt-price"></span></div>
+                <div class="mb-2"><strong>Phone:</strong> <span id="receipt-phone"></span></div>
+                <div class="mb-2"><strong>Mpesa Code:</strong> <span id="receipt-tcode"></span></div>
+                <div class="mb-2"><strong>Status:</strong> <span class="text-success fw-bold">Confirmed</span></div>
+                <div class="d-flex justify-content-between mt-4">
+                    <button class="btn btn-outline-secondary" id="receipt-back-btn">Back to Start</button>
+                    <button class="btn btn-outline-primary" id="save-receipt-btn">Save/Share</button>
+                </div>
             </div>
         </div>
 

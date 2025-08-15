@@ -16,7 +16,7 @@ waiting in checkout lines.
 
 ## System Features
 
-### 1. Barcode Scanning
+### 1. Barcode Scanning ✅
 
 **Requirements:**
 
@@ -33,7 +33,7 @@ waiting in checkout lines.
 - Display clear scanning instructions to users
 - Error handling via inventory lookup response
 
-### 2. Inventory Lookup
+### 2. Inventory Lookup ✅
 
 **Requirements:**
 
@@ -72,7 +72,7 @@ waiting in checkout lines.
 - Allow removal of individual items
 - Enable checkout for multiple items at once
 
-### 4. Phone Number Entry
+### 4. Phone Number Entry ✅
 
 **Requirements:**
 
@@ -88,7 +88,7 @@ waiting in checkout lines.
 - Add placeholder showing correct format (254712345678)
 - Store number temporarily for transaction processing
 
-### 5. Mpesa Payment Integration
+### 5. Mpesa Payment Integration ✅
 
 **Requirements:**
 
@@ -111,7 +111,7 @@ waiting in checkout lines.
 
 - Retry Mechanism: Allow users to retry failed payments without starting over
 
-### 6. Payment Status Monitoring
+### 6. Payment Status Monitoring ✅
 
 **Requirements:**
 
@@ -152,6 +152,7 @@ waiting in checkout lines.
 - Include: item name, price, timestamp, transaction code, phone number
 - Format receipt in a clean, professional layout
 - Provide option to return to start/scan again
+- Save Receipt Option: Provide a way to save or share the receipt
 
 **Implementation:**
 

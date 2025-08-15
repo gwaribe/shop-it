@@ -103,9 +103,13 @@ window.showConfirmationCard = function (payment) {
     document.getElementById("waiting-payment-card").style.display = "none";
     document.getElementById("confirmation-card").style.display = "block";
     document.getElementById("failed-card").style.display = "none";
+    document.getElementById("receipt-card").style.display = "none";
     document.getElementById("conf-tcode").textContent = payment.mpesa_code;
     document.getElementById("conf-amount").textContent = "Ksh " + payment.amount_paid;
     document.getElementById("conf-phone").textContent = payment.phone_number;
+
+    // Store payment for receipt
+    window.lastPaymentReceipt = payment;
 }
 
 /**

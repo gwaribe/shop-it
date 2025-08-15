@@ -113,6 +113,52 @@
             </div>
         </div>
 
+        <!-- Waiting for Payment Card -->
+        <div id="waiting-payment-card" class="card shadow-sm mt-4" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title text-primary">Payment In Progress</h5>
+                <div class="text-center my-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="alert alert-info">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                class="bi bi-info-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path
+                                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                            </svg>
+                        </div>
+                        <div id="waiting-status-message">
+                            <p class="mb-0"><strong>Mpesa prompt sent to your phone.</strong></p>
+                            <p class="mb-0 small">Please check your phone and enter your PIN to complete the payment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Phone</strong></div>
+                    <div class="col-6" id="wait-phone"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Amount</strong></div>
+                    <div class="col-6" id="wait-amount"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Status</strong></div>
+                    <div class="col-6 text-primary"><span id="wait-seconds">0</span> seconds elapsed</div>
+                </div>
+                <div class="text-center mt-3">
+                    <button id="cancel-waiting-btn" class="btn btn-outline-secondary" style="display: none;">
+                        Cancel and Go Back
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- Transaction Confirmation Card -->
         <div id="confirmation-card" class="card shadow-sm mt-4" style="display: none;">
             <div class="card-body">
@@ -140,7 +186,11 @@
         <div id="failed-card" class="card shadow-sm mt-4" style="display: none;">
             <div class="card-body">
                 <h5 class="card-title text-danger">Transaction Failed</h5>
-                <p>Either you cancelled or have insufficient balance. Retry.</p>
+                <p id="failed-message">Either you cancelled or have insufficient balance.</p>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-secondary" id="back-to-scan-btn">Scan New Item</button>
+                    <button class="btn btn-primary" id="retry-payment-btn">Retry Payment</button>
+                </div>
             </div>
         </div>
 

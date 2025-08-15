@@ -62,6 +62,11 @@ waiting in checkout lines.
 
 **Future Enhancement:**
 
+- customer can add quantity needed
+- quantity inputed should not exceed what is in the inventory
+- total price is calculated real time and shown alongside the total quantity
+- customer is billed based on total amount
+- show a clear button to wipe everything back to a fresh start
 - Support for multiple items in a basket
 - Show running total of all items
 - Allow removal of individual items
@@ -101,6 +106,10 @@ waiting in checkout lines.
 - Register callback URL with Mpesa API
 - Test STK push functionality with real payments
 - Implement proper error handling and timeout management
+
+**Future Enhancement:**
+
+- Retry Mechanism: Allow users to retry failed payments without starting over
 
 ### 6. Payment Status Monitoring
 

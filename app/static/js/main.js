@@ -89,7 +89,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 window.lastCheckoutId = data.CheckoutRequestID;
                 console.log("Starting polling with checkout ID:", window.lastCheckoutId);
-                window.pollPaymentStatus(window.lastCheckoutId); // Start polling immediately
+
+                // Show waiting for payment card and start polling
+                window.showWaitingPaymentCard(phoneNumber, amount);
+                window.pollPaymentStatus(window.lastCheckoutId);
             })
             .catch(err => {
                 console.error("Payment error:", err);
@@ -107,9 +110,59 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
+    // Retry payment button click handler
+    document.getElementById("retry-payment-btn").addEventListener("click", function () {
+        // Hide failed card and show phone entry card again
+        document.getElementById("failed-card").style.display = "none";
+        document.getElementById("phone-entry-card").style.display = "block";
+
+        // Reset phone input validation state
+        const phoneInput = document.getElementById("phone-number");
+        phoneInput.classList.remove("is-invalid");
+        phoneInput.classList.remove("is-valid");
+        document.getElementById("phone-error").classList.add("d-none");
+
+        // Reset OK button
+        document.getElementById("ok-btn").disabled = false;
+        document.getElementById("ok-btn").textContent = "OK";
+    });
+
+    // Back to scan button click handler
+    document.getElementById("back-to-scan-btn").addEventListener("click", function () {
+        // Hide all cards
+        document.getElementById("failed-card").style.display = "none";
+        document.getElementById("phone-entry-card").style.display = "none";
+        document.getElementById("waiting-payment-card").style.display = "none";
+        document.getElementById("confirmation-card").style.display = "none";
+        document.getElementById("item-display").style.display = "none";
+
+        // Reset phone input
+        const phoneInput = document.getElementById("phone-number");
+        phoneInput.value = "";
+        phoneInput.classList.remove("is-invalid");
+        phoneInput.classList.remove("is-valid");
+        document.getElementById("phone-error").classList.add("d-none");
+
+        // Reset OK button
+        document.getElementById("ok-btn").disabled = false;
+        document.getElementById("ok-btn").textContent = "OK";
+
+        // Show scanner
+        startScanner();
+    });
+
     // Manual barcode entry handling
     document.getElementById("submit-barcode").addEventListener("click", function () {
         submitManualBarcode();
+    });
+
+    // Cancel waiting button handler
+    document.getElementById("cancel-waiting-btn").addEventListener("click", function () {
+        // Clear intervals
+        clearInterval(window.elapsedTimeInterval);
+
+        // Show failed card with specific message
+        window.showFailedCard("Payment process was canceled by user.");
     });
 
     // Submit barcode on Enter key

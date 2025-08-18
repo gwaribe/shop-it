@@ -22,5 +22,12 @@
                 <img src="{{ url_for('static', filename='images/story-2.jpg') }}" alt="Shop-It App Demo" class="img-fluid rounded shadow">
             </div>
         </div>
+        <div class="text-center mt-5">
+            <a href="{{ url_for('main.scan') }}"
+               class="btn btn-success px-5 py-3 animate__animated animate__heartBeat"
+               style="font-size:1rem; animation-iteration-count: infinite; animation-duration: 2.5s; animation-delay: 2.5s;">
+                Try Now
+            </a>
+        </div>   
     </div>
 {% endblock %}

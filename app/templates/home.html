@@ -3,31 +3,38 @@
 {% extends "base.html" %}
 {% block title %}Shop-It | Mobile Self-Checkout{% endblock %}
 {% block content %}
-    <!-- Main Content -->
-    <div class="container py-5">
-        <div class="text-center">
-            <h1 class="fw-bold animate__animated animate__fadeInDown">Shop-It: Mobile Self-Checkout</h1>
-            <p class="lead text-muted animate__animated animate__fadeInUp">Upgrading the shopping experience with a seamless self-checkout.</p>
-        </div>
-        <div class="col-md-6 text-center animate__animated animate__fadeInRight">
-            <img src="{{ url_for('static', filename='images/story-4.jpg') }}" alt="Shop-It App Demo" class="img-fluid rounded shadow">
-        </div>
-        <div class="row align-items-center mt-5">
-            <div class="col-md-6 animate__animated animate__fadeInLeft">
-                <h2 class="fw-bold">What's up</h2>
-                <p>Having to wait in a long queue to pay for the long carefully picked items is boring and disatisfying.</p>
-                <h2 class="fw-bold mt-4">How can we make this quicker and interesting?</h2>
-                <p>Shop-It enables customers to scan item barcode, view details, and make payments via Mpesa directly from their phones.</p>
-                <h2 class="fw-bold mt-4">How's this helpful</h2>
-                <p>Improved customer satisfaction, reduced operational costs for counters or POS, and faster shopping experiences.</p>
-            </div>
-        </div>
-        <div class="text-center mt-5">
-            <a href="{{ url_for('main.scan') }}"
-               class="btn btn-success px-5 py-3 animate__animated animate__heartBeat"
-               style="font-size:1rem; animation-iteration-count: infinite; animation-duration: 2.5s; animation-delay: 2.5s;">
-                Try Now
-            </a>
-        </div>   
+<!-- Main Content -->
+<div class="container py-5">
+    <div class="text-center">
+        <h1 class="fw-bold animate__animated animate__fadeInDown">Shop-It: Mobile Self-Checkout</h1>
+        <p class="lead text-muted animate__animated animate__fadeInUp">Upgrading the shopping experience with a seamless
+            self-checkout.</p>
     </div>
+    <div class="row align-items-center mt-5">
+        <div class="col-md-6 text-center animate__animated animate__fadeInRight">
+            <img src="{{ url_for('static', filename='images/story-4.jpg') }}" alt="Shop-It App Demo"
+                class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6 animate__animated animate__fadeInLeft">
+            <h2 class="fw-bold">What's up</h2>
+            <p>Having to wait in a long queue to pay for the long carefully picked items is boring and disatisfying.</p>
+            <h2 class="fw-bold mt-4">How can we make this quicker and interesting?</h2>
+            <p>Shop-It enables customers to scan item barcode, view details, and make payments via Mpesa directly from
+                their phones.</p>
+            <h2 class="fw-bold mt-4">How's this helpful</h2>
+            <p>Improved customer satisfaction, reduced operational costs for counters or POS, and faster shopping
+                experiences.</p>
+        </div>
+    </div>
+    <div class="text-center mt-5 d-flex flex-wrap justify-content-center gap-3">
+        <a href="{{ url_for('main.scan') }}" class="btn btn-success px-5 py-3 animate__animated animate__heartBeat"
+            style="font-size:1rem; animation-iteration-count: infinite; animation-duration: 2.5s; animation-delay: 3.0s; width: 200px;">
+            Try Now
+        </a>
+        <a href="{{ url_for('main.usage') }}" class="btn btn-outline-primary px-5 py-3 transition"
+            style="font-size:1rem; width: 200px;">
+            How to Use Shop-It
+        </a>
+    </div>
+</div>
 {% endblock %}

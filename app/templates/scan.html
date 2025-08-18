@@ -1,19 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop-it</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <!-- html5-qrscanner -->
-    <script src="https://unpkg.com/html5-qrcode"></script>
-</head>
-
-<body class="bg-light">
+{% extends "base.html" %}
+{% block title %}Shop-It | Scan QRCode{% endblock %}
+{% block content %} 
     <div class="container py-5">
         <h1 class="mb-4 text-primary">Scan QRCode</h1>
         <div class="d-flex gap-2 mb-3">
@@ -221,15 +209,11 @@
         <!-- Error display -->
         <div id="item-error" class="alert alert-danger d-none mt-4" role="alert"></div>
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+{% endblock %}
+{% block scripts %}
     <!-- Application JavaScript - Load in the correct order for dependency resolution -->
     <script src="{{ url_for('static', filename='js/scanner.js') }}"></script>
     <script src="{{ url_for('static', filename='js/inventory.js') }}"></script>
     <script src="{{ url_for('static', filename='js/payment.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-</body>
-
-</html>
+{% endblock %}

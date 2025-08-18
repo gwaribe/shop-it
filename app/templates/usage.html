@@ -6,75 +6,31 @@
 <div class="container py-5">
     <h1 class="fw-bold mb-4 text-center">How to Use Shop-It</h1>
     <div class="mb-5">
+        {% set steps = [
+            ('story-1.jpg', 'Step 1', 'Choose a product you intend to buy'),
+            ('story-2.jpg', 'Step 2', 'Open the Shop-it application'),
+            ('story-3.jpg', 'Step 3', 'On the picked item, find the QRCode<br>Click Scan to scan the item QRCode'),
+            ('story-4.jpg', 'Step 4', 'Confirm the item details from scan result'),
+            ('story-5.jpg', 'Step 5', '- Enter the Mpesa number for payment and click Pay<br>- Wait for Transaction Confirmation<br>- View &amp; Download Receipt')
+        ] %}
+        {% for img, step, desc in steps %}
         <div class="card mb-4 shadow-sm">
             <div class="row g-0 align-items-center">
-                <div class="col-md-4 text-center p-3">
-                    <img src="{{ url_for('static', filename='images/story-1.jpg') }}" class="img-fluid rounded shadow" style="max-height:220px;" alt="Choose a product">
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <img src="{{ url_for('static', filename='images/' ~ img) }}"
+                         class="img-fluid rounded-start w-100 h-100 object-fit-cover"
+                         style="min-height:220px; max-height:300px; object-fit:cover; border-radius: .375rem 0 0 .375rem;"
+                         alt="{{ desc|striptags }}">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">Step 1</h5>
-                        <p class="card-text fs-5 mb-0">Choose a product you intend to buy</p>
+                        <h5 class="card-title">{{ step }}</h5>
+                        <p class="card-text fs-5 mb-0">{{ desc|safe }}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="row g-0 align-items-center">
-                <div class="col-md-4 text-center p-3">
-                    <img src="{{ url_for('static', filename='images/story-2.jpg') }}" class="img-fluid rounded shadow" style="max-height:220px;" alt="Open the Shop-it application">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Step 2</h5>
-                        <p class="card-text fs-5 mb-0">Open the Shop-it application</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="row g-0 align-items-center">
-                <div class="col-md-4 text-center p-3">
-                    <img src="{{ url_for('static', filename='images/story-3.jpg') }}" class="img-fluid rounded shadow" style="max-height:220px;" alt="Click Scan to scan item QRCode">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Step 3</h5>
-                        <p class="card-text fs-5 mb-0">On the picked item, find the QRCode<br>Click Scan to scan the item QRCode</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="row g-0 align-items-center">
-                <div class="col-md-4 text-center p-3">
-                    <img src="{{ url_for('static', filename='images/story-4.jpg') }}" class="img-fluid rounded shadow" style="max-height:220px;" alt="Confirm the item details from scan result">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Step 4</h5>
-                        <p class="card-text fs-5 mb-0">Confirm the item details from scan result</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="row g-0 align-items-center">
-                <div class="col-md-4 text-center p-3">
-                    <img src="{{ url_for('static', filename='images/story-5.jpg') }}" class="img-fluid rounded shadow" style="max-height:220px;" alt="Enter the Mpesa number for payment and click Pay">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Step 5</h5>
-                        <p class="card-text fs-5 mb-0">
-                            Enter the Mpesa number for payment and click Pay<br>
-                            Wait for Transaction Confirmation<br>
-                            View &amp; Download Receipt
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

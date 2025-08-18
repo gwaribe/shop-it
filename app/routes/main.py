@@ -12,3 +12,6 @@ def home():
 def scan():
     return render_template('scan.html')
 
+@main_bp.route('/usage')
+def usage():
+    return render_template('usage.html')

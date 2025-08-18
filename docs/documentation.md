@@ -62,7 +62,7 @@ waiting in checkout lines.
 
 **Future Enhancement:**
 
-- customer can add quantity needed
+- customer can add/reduce quantity needed
 - quantity inputed should not exceed what is in the inventory
 - total price is calculated real time and shown alongside the total quantity
 - customer is billed based on total amount
@@ -127,7 +127,7 @@ waiting in checkout lines.
 - Display appropriate loading indicators during the wait
 - Show clear success/failure messages
 
-### 7. Payment Confirmation
+### 7. Payment Confirmation 🧪
 
 **Requirements:**
 
@@ -144,7 +144,7 @@ waiting in checkout lines.
 - Update UI based on transaction outcome
 - Implement error handling for failed callbacks
 
-### 8. Receipt Display
+### 8. Receipt Display 🧪
 
 **Requirements:**
 

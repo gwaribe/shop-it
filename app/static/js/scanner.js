@@ -43,6 +43,7 @@ function startScanner() {
         config,
         (decodedText, decodedResult) => {
             showScanResult(decodedText);
+            showItemLoading();
             fetchItemDetails(decodedText);
             stopScanner();
         },
@@ -53,6 +54,17 @@ function startScanner() {
         console.error("Scan failed", err);
         showItemError("Failed to start camera. Please check your camera permissions.");
     });
+}
+
+// Show loading spinner
+window.showItemLoading = function() {
+    const loadingDiv = document.getElementById("item-loading");
+    if (loadingDiv) loadingDiv.classList.remove("d-none");
+}
+// Hide loading spinner
+window.hideItemLoading = function() {
+    const loadingDiv = document.getElementById("item-loading");
+    if (loadingDiv) loadingDiv.classList.add("d-none");
 }
 
 /**

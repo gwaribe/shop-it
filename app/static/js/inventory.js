@@ -8,9 +8,11 @@
  * @param {string} barcode - The barcode to look up
  */
 function fetchItemDetails(barcode) {
+    window.showItemLoading && window.showItemLoading();
     fetch(`/inventory/get-item/${barcode}`)
         .then(response => response.json())
         .then(data => {
+            window.hideItemLoading && window.hideItemLoading();
             if (data.error) {
                 showItemError(data.error);
                 return;
@@ -18,6 +20,7 @@ function fetchItemDetails(barcode) {
             showItemDisplay(data);
         })
         .catch(err => {
+            window.hideItemLoading && window.hideItemLoading();
             showItemError("Failed to fetch item details.");
         });
 }

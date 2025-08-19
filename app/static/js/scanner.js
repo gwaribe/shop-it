@@ -57,12 +57,12 @@ function startScanner() {
 }
 
 // Show loading spinner
-window.showItemLoading = function() {
+window.showItemLoading = function () {
     const loadingDiv = document.getElementById("item-loading");
     if (loadingDiv) loadingDiv.classList.remove("d-none");
 }
 // Hide loading spinner
-window.hideItemLoading = function() {
+window.hideItemLoading = function () {
     const loadingDiv = document.getElementById("item-loading");
     if (loadingDiv) loadingDiv.classList.add("d-none");
 }

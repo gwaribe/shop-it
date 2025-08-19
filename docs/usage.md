@@ -1,8 +1,12 @@
 # How to Use Shop-It
 
-Follow these simple steps to use the Shop-It self-checkout application:
+Follow these simple steps to use the Shop-It self-checkout application
+
+<https://shop-it-l9f0.onrender.com/> ↗️
 
 ---
+
+## Steps for production use
 
 ![Choose a product](/app/static/images/story-1.jpg)
 **Choose a product you intend to buy**
@@ -29,3 +33,7 @@ Follow these simple steps to use the Shop-It self-checkout application:
 **Enter the Mpesa number for payment and click Pay**\
 **Wait for Transaction Confirmation**\
 **View & Download Receipt**
+
+## Troubleshooting
+
+Incase you encounter an anomaly from these application, Try to refresh the page.

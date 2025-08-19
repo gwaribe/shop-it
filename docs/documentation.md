@@ -1,4 +1,4 @@
-# Shop-it: Mobile Self-Checkout Documentation
+# Shop-it: Mobile Self-Checkout
 
 ## Problem Statement
 
@@ -9,10 +9,8 @@ But how might we enable customers to shop quickly with less hassle?
 
 ## Solution Overview
 
-Since most items have barcodes, we've designed an application where customers
-pick an item, scan the QR code, view item details and price,
-make an Mpesa payment, and receive a digital receipt—all without
-waiting in checkout lines.
+Since most items have barcodes, this application upgrades customer experience where one picks an item, scans the QRcode, view item details and price, makes payment via Mpesa, and receive a digital receipt—all without
+waiting in counters.
 
 ## System Features
 
@@ -23,7 +21,6 @@ waiting in checkout lines.
 - Use phone camera to scan product barcode (MVP)
 - Handle scan errors with clear user feedback (MVP)
 - Provide intuitive scanning interface
-- ~~Validate barcode format~~ (Not needed for MVP - validation happens implicitly during inventory lookup)
 
 **Implementation:**
 
@@ -127,7 +124,7 @@ waiting in checkout lines.
 - Display appropriate loading indicators during the wait
 - Show clear success/failure messages
 
-### 7. Payment Confirmation 🧪
+### 7. Payment Confirmation ✅
 
 **Requirements:**
 
@@ -144,7 +141,7 @@ waiting in checkout lines.
 - Update UI based on transaction outcome
 - Implement error handling for failed callbacks
 
-### 8. Receipt Display 🧪
+### 8. Receipt Display ✅
 
 **Requirements:**
 
@@ -161,7 +158,7 @@ waiting in checkout lines.
 - Style receipt for readability on mobile devices
 - Add options to save/share receipt in future versions
 
-## Critical Additional Features
+## Additional Features ⌚
 
 ### 9. Session Management
 
@@ -226,14 +223,6 @@ Install `mongodb for vscode` extension and connect to mongodb.
 | **API**      | Mpesa Daraja, HTTPie                       |
 | **Browser**  | Google Chrome                              |
 
-## Success Criteria for MVP
-
-1. Complete end-to-end flow from scan to receipt
-2. <5% transaction failure rate
-3. Average checkout time under 60 seconds
-4. Support for major mobile browsers (Chrome, Safari)
-5. Responsive design working on devices 320px and up
-
 ## Layout overview
 
-![layouts](layouts.png)
+![layouts](/app/static/images/layouts.png)

@@ -1,3 +1,4 @@
+
 # Shop-It API Reference
 
 This document describes all custom-built API endpoints for the Shop-It application. All endpoints return JSON responses and use RESTful conventions.
@@ -85,3 +86,21 @@ This document describes all custom-built API endpoints for the Shop-It applicati
 - All endpoints return JSON.
 - All errors are returned as `{ "error": "..." }` or `{ "status": "failed" }`.
 - See [DB design](/docs/dbschema.md) for data structure details.
+
+---
+
+## Environment Variables Required for Setup
+
+The following environment variables must be set in a `.env` file for the application to function correctly:
+
+```
+MONGODB_URL           # MongoDB connection string
+MPESA_CONSUMER_KEY    # Mpesa API consumer key
+MPESA_CONSUMER_SECRET # Mpesa API consumer secret
+MPESA_SHORTCODE       # Mpesa shortcode
+MPESA_PASSKEY         # Mpesa passkey
+MPESA_CALLBACK_URL    # Public callback URL for Mpesa payment notifications
+BUSINESS_NUMBER       # Business phone number (for display or validation)
+```
+
+Ensure these are set with the correct values before running the application.

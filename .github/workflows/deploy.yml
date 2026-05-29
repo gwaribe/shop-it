@@ -1,0 +1,21 @@
+name: Deploy to EC2
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy using SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SHOP_IT_EC2_AWS }}
+          username: ubuntu
+          key: ${{ secrets.SHOP_IT_PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/shop-it/shop-it
+            git pull origin main
+            source venv/bin/activate
+            pip install -r requirements.txt
+            sudo systemctl restart shop-it.service

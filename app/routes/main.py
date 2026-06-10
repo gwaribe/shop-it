@@ -28,3 +28,9 @@ def serve_sw():
 @main_bp.route('/offline')
 def offline():
     return render_template('offline.html')
+
+@main_bp.route('/.well-known/assetlinks.json')
+def assetlinks():
+    response = make_response(send_from_directory('static/.well-known', 'assetlinks.json'))
+    response.headers['Content-Type'] = 'application/json'
+    return response

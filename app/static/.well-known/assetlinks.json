@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.onrender.shop_it_l9f0.twa",
+    "sha256_cert_fingerprints": [
+      "SHA-256: 84:9E:38:64:91:39:26:A9:26:1C:5B:2B:1D:D1:BD:69:27:94:15:B4:AC:EF:11:00:FE:CC:E7:CC:4C:41:2A:36"
+    ]
+  }
+}]
